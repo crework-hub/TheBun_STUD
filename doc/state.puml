@@ -1,0 +1,29 @@
+@startuml
+skinparam shadowing false
+
+title STATE
+title Жизненный цикл Колобка (Маршрутизация и безопасность)
+
+state "На окне" as OnWindow
+state "В пути" as InMotion
+state "Съеден" as Eaten
+
+[*] --> OnWindow : <<create>>
+
+OnWindow --> InMotion : сбежать
+
+InMotion --> InMotion : спеть_песню()
+
+' Точка выбора
+InMotion -down-> Eaten : [съесть() = true]
+InMotion -up-> InMotion : [съесть() = false]
+
+note right of InMotion
+  Точка выбора (Choice)
+  Проверяет:
+  если Колобок спел успешно — остаётся "В пути"
+  если Лиса подменила параметры — переходит в "Съеден"
+end note
+
+Eaten --> [*] : <<destroy>>
+@enduml
