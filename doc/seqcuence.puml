@@ -1,0 +1,41 @@
+@startuml
+title Пошаговое взаимодействие в системе "Колобок" (Маршрутизация и безопасность)
+
+actor "Колобок" as Kolobok
+actor "Заяц" as Hare
+actor "Волк" as Wolf
+actor "Медведь" as Bear
+actor "Лиса" as Fox
+
+' === Начало маршрута ===
+Kolobok -> Hare: сбежать от Деда и Бабы
+
+' === Взаимодействие с Зайцем ===
+Hare -> Kolobok: съесть()
+Kolobok -> Hare: спеть_песню() : возвращает false
+note right: Заяц обманут
+Hare --> Kolobok: Колобок продолжает путь
+
+' === Взаимодействие с Волком ===
+Wolf -> Kolobok: съесть()
+Kolobok -> Wolf: спеть_песню() : возвращает false
+note right: Волк обманут
+Wolf --> Kolobok: Колобок продолжает путь
+
+' === Взаимодействие с Медведем ===
+Bear -> Kolobok: съесть()
+Kolobok -> Bear: спеть_песню() : возвращает false
+note right: Медведь обманут
+Bear --> Kolobok: Колобок продолжает путь
+
+' === Критическое взаимодействие с Лисой ===
+Fox -> Kolobok: съесть()
+Kolobok -> Fox: спеть_песню()
+Fox -> Fox: подменитьПараметрыСлуха()
+note right of Fox: Обход защиты Колобка
+Fox -> Kolobok: съесть() : возвращает true
+note right: Колобок съеден!
+
+' Финал
+Fox --> Kolobok: **Конец маршрута**
+@enduml
