@@ -1,0 +1,36 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Дед и Баба" as Grandparents
+actor "Колобок" as Kolobok
+actor "Заяц" as Hare
+actor "Волк" as Wolf
+actor "Медведь" as Bear
+actor "Лиса" as Fox
+
+package "Маршрутизация и безопасность" {
+  usecase "Сбежать от Деда и Бабы" as EscapeGrandparents
+  usecase "Петь песню" as SingSong
+  usecase "Обмануть зверя песней" as DeceiveWithSong
+  usecase "Подменить параметры приёма (слух)" as SpoofHearing
+  usecase "Съесть Колобка" as EatKolobok
+}
+
+' Связи актёров с use cases
+Grandparents --> EscapeGrandparents
+
+Kolobok --> EscapeGrandparents
+Kolobok --> SingSong
+
+Hare --> EatKolobok
+Wolf --> EatKolobok
+Bear --> EatKolobok
+Fox --> EatKolobok
+Fox --> SpoofHearing
+
+' Связи между use cases
+SingSong ..> DeceiveWithSong : <<include>>
+DeceiveWithSong <.. EatKolobok : <<extend>> : если песня удалась
+
+@enduml
