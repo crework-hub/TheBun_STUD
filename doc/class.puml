@@ -1,0 +1,54 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+
+abstract class Существо {
+    + сила: int
+    + съесть(цель: Колобок)
+}
+
+abstract class Персонаж extends Существо {
+    + слушатьПесню()
+}
+
+class Дед extends Персонаж {
+    + сила = 10
+}
+
+class Баба extends Персонаж {
+    + сила = 10
+}
+
+class Заяц extends Персонаж {
+    + сила = 20
+}
+
+class Волк extends Персонаж {
+    + сила = 50
+}
+
+class Медведь extends Персонаж {
+    + сила = 100
+}
+
+class Лиса extends Персонаж {
+    + сила = 80
+    + подменитьПараметрыСлуха()
+}
+
+class Колобок {
+    + спетьПесню(): boolean
+    + сбежать()
+}
+
+interface Eatable {
+    + съесть(жертва: Колобок): boolean
+}
+
+Существо ..|> Eatable
+
+Колобок "1" -- "0..1" Существо : пытается съесть >
+Колобок ..> Персонаж : поёт песню >
+Лиса --> Колобок : подменяет параметры
+
+@enduml
